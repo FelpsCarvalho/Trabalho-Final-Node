@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>verificarLogin()</script>
+
+    <script>getProdutos()</script>
+
+    <button onclick="show_inserir()">Inserir</button>
+
+    <div class="inserir_off" id="inserir">
+        <input type="text" name="descricao" placeholder="Descrição" id="insertDescricao">
+        <input type="text" name="marca" placeholder="Marca" id="insertMarca">
+        <input type="number" min="0.00" max="10000.00" step="0.01" name="valor" placeholder="Valor" id="insertValor">
+        <button onclick="inserir()">Cadastrar</button>
+        <button onclick="cancelar()">Cancelar</button>
+    </div>
+
+    <div class="editar_off" id="editar">
+        <input type="text" name="id" id="idDescricao" style="display: none;">
+        <input type="text" name="descricao" placeholder="Descrição" id="editDescricao">
+        <input type="text" name="marca" placeholder="Marca" id="editMarca">
+        <input type="number" min="0.00" max="10000.00" step="0.01" name="valor" placeholder="Valor" id="editValor">
+        <button onclick="editar(this.id)" class="atualizar_button">Atualizar</button>
+        <button onclick="cancelar()">Cancelar</button>
+    </div>
+
+    
+</body>
+</html>
