@@ -2,6 +2,7 @@ const express = require('express')
 let apiRouter = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { redirect } = require('express/lib/response')
 
 const endpoint = '/'
 
@@ -36,8 +37,9 @@ let checkToken = (req, res, next) => {
 }
 
 let isAdmin = (req, res, next) => {
+    console.log(req)
     knex
-        .select('*').from('usuario').where({ id: req.usuarioId })
+        .select('*').from('usuario').where({ id: req.headers["usuarioid"] })
         .then((usuarios) => {
             if (usuarios.length) {
                 let usuario = usuarios[0]
@@ -81,7 +83,7 @@ apiRouter.post(endpoint + 'seguranca/register', (req, res) => {
 })
 
 apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
-    console.log(req.body.login)
+    console.log(req.body.login) 
     knex
         .select('*').from('usuario').where({ login: req.body.login })
         .then(usuarios => {
@@ -92,15 +94,15 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
                     var tokenJWT = jwt.sign({ id: usuario.id },
                         process.env.SECRET_KEY, {
                         expiresIn: 3600
-                    })
+                    })                 
                     res.status(200).json({
                         id: usuario.id,
                         login: usuario.login,
                         nome: usuario.nome,
                         roles: usuario.roles,
                         token: tokenJWT
-                    })
-                    return
+                    })                  
+                    return                    
                 }
             }
             res.status(200).json({ message: 'Login ou senha incorretos' })
@@ -147,12 +149,12 @@ apiRouter.get(endpoint + 'produtos/:id', checkToken,(req, res) => {
 })
 
 apiRouter.post(endpoint + 'produtos', isAdmin,(req, res) => {
+    console.log(req)
     knex('produto')
         .insert({
             descricao: req.body.descricao,
             valor: req.body.valor,
-            marca: req.body.marca,
-            valor: req.body.valor
+            marca: req.body.marca
         }, ['id', 'descricao', 'valor', 'marca'])
         .then((result) => {
             let produto = result[0]
