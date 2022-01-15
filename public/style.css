@@ -1,3 +1,11 @@
 body{
     background-color: yellow;
 }
+
+.inserir_off {
+    display: none;
+}
+
+.editar_off {
+    display: none;
+}
