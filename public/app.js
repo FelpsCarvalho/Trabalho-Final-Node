@@ -28,7 +28,7 @@ async function login() {
         }
 
     } catch (error) {
-        
+
     }
 }
 
@@ -67,7 +67,7 @@ async function getProdutos() {
 function showProdutos(data) {
 
     let cabecalho = [
-        'Decrição',
+        'Descrição',
         'Valor',
         'Marca',
         'Ação'
@@ -97,7 +97,7 @@ function showProdutos(data) {
         row.insertCell().innerHTML = produto.marca;
 
         let editar = `<button id="${produto.id}" onclick="show_editar(this.id)">Editar</button>`
-        let excluir = `<button id="${produto.id}" onclick="excluir(this.id)">Excluir</button>`
+        let excluir = `<button style="background-color:red;border-color:red;border-radius:3px;margin:0.2rem" id="${produto.id}" onclick="excluir(this.id)">Excluir</button>`
         row.insertCell().innerHTML = editar + excluir
     };
 
@@ -117,7 +117,7 @@ async function excluir(id){
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
-                'usuarioId': sessionStorage.getItem('id') 
+                'usuarioId': sessionStorage.getItem('id')
             },
         })
 
@@ -132,6 +132,7 @@ async function excluir(id){
 
 function show_inserir(){
     document.getElementById('inserir').classList.remove("inserir_off")
+    document.getElementById('editar').classList.add("editar_off")
 }
 
 async function inserir() {
@@ -163,18 +164,19 @@ async function inserir() {
         }
 
     } catch (error) {
-       
+
     }
 }
 
-function show_editar(id){    
+function show_editar(id){
     document.getElementById('idDescricao').value = id
     document.getElementById('editar').classList.remove("editar_off")
+    document.getElementById('inserir').classList.add("inserir_off")
     console.log(document.getElementById('idDescricao').value)
 }
 
-async function editar() { 
-    
+async function editar() {
+
     let id = document.getElementById('idDescricao').value
 
     try {
@@ -200,12 +202,12 @@ async function editar() {
         }
         else {
             alert('Erro ao editar o produto')
-      
+
         }
         window.location.reload()
 
     } catch (error) {
-        
+
     }
 }
 
