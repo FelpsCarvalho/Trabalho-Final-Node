@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/app', express.static (path.join (__dirname, '/public')))
+app.use('/app/home', express.static (path.join (__dirname, '/public/home.html')))
 app.use ('/api', apiRouter)
 
 let port = process.env.PORT || 3000
